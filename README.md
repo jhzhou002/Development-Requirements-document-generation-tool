@@ -83,7 +83,10 @@ npm install
 
 # 配置环境变量
 cp .env.example .env
-# 编辑 .env 文件，配置数据库连接信息
+# 编辑 .env 文件，配置以下信息：
+# - 数据库连接信息
+# - JWT密钥（请更改为随机字符串）
+# - AI API配置（可选）
 
 # 启动开发服务器
 npm run dev
