@@ -5,6 +5,31 @@ const { authenticateToken } = require('../middleware/auth');
 
 const router = express.Router();
 
+// 安全的tech_stack解析函数
+function parseTechStack(techStack) {
+  if (!techStack) {
+    return {};
+  }
+  
+  // 如果已经是对象，直接返回
+  if (typeof techStack === 'object') {
+    return techStack;
+  }
+  
+  // 如果是字符串，尝试解析
+  if (typeof techStack === 'string') {
+    try {
+      return JSON.parse(techStack);
+    } catch (error) {
+      console.warn('解析tech_stack失败，使用默认值:', error.message);
+      return {};
+    }
+  }
+  
+  // 其他情况返回空对象
+  return {};
+}
+
 // 所有文档路由都需要认证
 router.use(authenticateToken);
 
@@ -29,7 +54,7 @@ router.post('/generate/:projectId/requirement', async (req, res) => {
     }
 
     const project = projects[0];
-    project.tech_stack = JSON.parse(project.tech_stack || '{}');
+    project.tech_stack = parseTechStack(project.tech_stack);
 
     const [requirements] = await db.execute(
       'SELECT * FROM project_requirements WHERE project_id = ? ORDER BY category, field_name',
@@ -88,7 +113,7 @@ router.post('/generate/:projectId/development', async (req, res) => {
     }
 
     const project = projects[0];
-    project.tech_stack = JSON.parse(project.tech_stack || '{}');
+    project.tech_stack = parseTechStack(project.tech_stack);
 
     const [requirements] = await db.execute(
       'SELECT * FROM project_requirements WHERE project_id = ? ORDER BY category, field_name',

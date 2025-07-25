@@ -5,6 +5,31 @@ const { authenticateToken } = require('../middleware/auth');
 
 const router = express.Router();
 
+// 安全的tech_stack解析函数
+function parseTechStack(techStack) {
+  if (!techStack) {
+    return {};
+  }
+  
+  // 如果已经是对象，直接返回
+  if (typeof techStack === 'object') {
+    return techStack;
+  }
+  
+  // 如果是字符串，尝试解析
+  if (typeof techStack === 'string') {
+    try {
+      return JSON.parse(techStack);
+    } catch (error) {
+      console.warn('解析tech_stack失败，使用默认值:', error.message);
+      return {};
+    }
+  }
+  
+  // 其他情况返回空对象
+  return {};
+}
+
 // 所有项目路由都需要认证
 router.use(authenticateToken);
 
@@ -74,7 +99,7 @@ router.get('/', async (req, res) => {
 
     const formattedProjects = projects.map(project => ({
       ...project,
-      tech_stack: JSON.parse(project.tech_stack || '{}')
+      tech_stack: parseTechStack(project.tech_stack)
     }));
 
     res.json({
@@ -111,7 +136,7 @@ router.get('/:projectId', async (req, res) => {
     }
 
     const project = projects[0];
-    project.tech_stack = JSON.parse(project.tech_stack || '{}');
+    project.tech_stack = parseTechStack(project.tech_stack);
 
     // 获取项目需求
     const [requirements] = await db.execute(
