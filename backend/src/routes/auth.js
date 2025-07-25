@@ -114,6 +114,14 @@ router.post('/login', async (req, res) => {
     }
 
     // 生成JWT令牌
+    if (!process.env.JWT_SECRET) {
+      console.error('JWT_SECRET环境变量未设置');
+      return res.status(500).json({
+        success: false,
+        message: 'JWT配置错误'
+      });
+    }
+
     const token = jwt.sign(
       { 
         userId: user.id, 

@@ -1,6 +1,8 @@
+// 首先加载环境变量
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
 const { createConnection } = require('./config/database');
 
 // 路由导入
@@ -9,8 +11,6 @@ const projectRoutes = require('./routes/projects');
 const templateRoutes = require('./routes/templates');
 const documentRoutes = require('./routes/documents');
 const aiRoutes = require('./routes/ai');
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
