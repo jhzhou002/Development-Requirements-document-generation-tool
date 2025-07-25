@@ -1,0 +1,29 @@
+{
+  "name": "doc-generator-frontend",
+  "version": "1.0.0",
+  "description": "需求文档生成工具前端",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4",
+    "pinia": "^2.1.6",
+    "element-plus": "^2.3.9", 
+    "@element-plus/icons-vue": "^2.1.0",
+    "axios": "^1.5.0",
+    "marked": "^7.0.5",
+    "highlight.js": "^11.8.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.3.4",
+    "vite": "^4.4.9",
+    "eslint": "^8.45.0",
+    "eslint-plugin-vue": "^9.15.1",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "prettier": "^3.0.0"
+  }
+}

@@ -1,0 +1,230 @@
+/* 全局样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  background-color: #f5f7fa;
+  color: #303133;
+}
+
+/* 布局相关 */
+.layout-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background: #fff;
+  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+  z-index: 1000;
+}
+
+.main-content {
+  flex: 1;
+  background: #f5f7fa;
+  overflow-x: hidden;
+}
+
+.page-header {
+  background: #fff;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e4e7ed;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 500;
+  color: #303133;
+  margin: 0;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: #909399;
+  margin-top: 8px;
+}
+
+/* 卡片样式 */
+.content-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.card-header {
+  padding: 20px 24px 0;
+  border-bottom: 1px solid #ebeef5;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #303133;
+}
+
+.card-body {
+  padding: 0 24px 24px;
+}
+
+/* 按钮样式增强 */
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+}
+
+/* 表单样式 */
+.form-section {
+  margin-bottom: 32px;
+}
+
+.form-section-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #303133;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #409eff;
+}
+
+/* 项目卡片 */
+.project-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.project-status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-draft {
+  background: #fdf2ec;
+  color: #e6a23c;
+}
+
+.status-completed {
+  background: #f0f9ff;
+  color: #409eff;
+}
+
+.status-archived {
+  background: #f5f7fa;
+  color: #909399;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .layout-container {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    height: auto;
+  }
+  
+  .page-header {
+    padding: 12px 16px;
+  }
+  
+  .card-body {
+    padding: 0 16px 16px;
+  }
+}
+
+/* 动画效果 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* 文档预览样式 */
+.document-preview {
+  line-height: 1.8;
+}
+
+.document-preview h1,
+.document-preview h2,
+.document-preview h3 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  color: #303133;
+}
+
+.document-preview h1 {
+  font-size: 28px;
+  border-bottom: 2px solid #409eff;
+  padding-bottom: 12px;
+}
+
+.document-preview h2 {
+  font-size: 22px;
+  color: #409eff;
+}
+
+.document-preview h3 {
+  font-size: 18px;
+}
+
+.document-preview p {
+  margin-bottom: 16px;
+  color: #606266;
+}
+
+.document-preview ul,
+.document-preview ol {
+  margin-bottom: 16px;
+  padding-left: 24px;
+}
+
+.document-preview li {
+  margin-bottom: 8px;
+}
+
+.document-preview code {
+  background: #f5f7fa;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+
+.document-preview pre {
+  background: #f5f7fa;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+
+.document-preview blockquote {
+  border-left: 4px solid #409eff;
+  padding-left: 16px;
+  margin: 16px 0;
+  color: #606266;
+  font-style: italic;
+}
