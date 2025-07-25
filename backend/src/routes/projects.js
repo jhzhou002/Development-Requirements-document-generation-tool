@@ -182,16 +182,19 @@ router.put('/:projectId/requirements', async (req, res) => {
       });
     }
 
-    // 开始事务
-    await db.execute('START TRANSACTION');
+    // 获取连接进行事务处理
+    const connection = await db.getConnection();
 
     try {
+      // 开始事务
+      await connection.beginTransaction();
+
       // 删除现有需求
-      await db.execute('DELETE FROM project_requirements WHERE project_id = ?', [projectId]);
+      await connection.execute('DELETE FROM project_requirements WHERE project_id = ?', [projectId]);
 
       // 插入新需求
       for (const req of requirements) {
-        await db.execute(
+        await connection.execute(
           `INSERT INTO project_requirements 
            (project_id, category, field_name, field_value, field_type, is_optimized, original_value) 
            VALUES (?, ?, ?, ?, ?, ?, ?)`,
@@ -208,12 +211,13 @@ router.put('/:projectId/requirements', async (req, res) => {
       }
 
       // 更新项目修改时间
-      await db.execute(
+      await connection.execute(
         'UPDATE projects SET updated_at = CURRENT_TIMESTAMP WHERE id = ?',
         [projectId]
       );
 
-      await db.execute('COMMIT');
+      // 提交事务
+      await connection.commit();
 
       res.json({
         success: true,
@@ -221,8 +225,12 @@ router.put('/:projectId/requirements', async (req, res) => {
       });
 
     } catch (error) {
-      await db.execute('ROLLBACK');
+      // 回滚事务
+      await connection.rollback();
       throw error;
+    } finally {
+      // 释放连接
+      connection.release();
     }
 
   } catch (error) {
